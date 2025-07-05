@@ -1,28 +1,21 @@
 import { Box, XCircle, Circle, Loader, Bot, CircleCheck } from "lucide-react";
-import { NodeProps, Handle, Position } from "reactflow";
-import React, { useEffect, useState } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { NodeProps } from "reactflow";
+import { Handle, Position } from "reactflow";
+import React, { useEffect } from "react";
 
 export interface CustomNodeData {
   title: string;
   status: "not_active" | "active" | "success" | "error";
   type: string;
-  description: unknown;
   visible: boolean;
 }
 
-export interface CustomNodeProps extends NodeProps<CustomNodeData> {}
-
-export default function CustomNode({ id, data, selected }: CustomNodeProps) {
-  const { title, status, type, description, visible } = data;
-
-  // Add useEffect for fade-in animation
-  const [isVisible, setIsVisible] = useState(false);
+export default function CustomNode({ data }: { data: CustomNodeData }) {
+  const { title, status, type, visible } = data;
 
   useEffect(() => {
-    // Delay to allow the DOM to update before starting the transition
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
+    const timer = setTimeout(() => {}, 50);
 
     return () => clearTimeout(timer);
   }, []);
@@ -47,7 +40,6 @@ export default function CustomNode({ id, data, selected }: CustomNodeProps) {
   };
 
   return (
-
     <div className="flex items-center p-4 bg-white border border-gray-300 rounded-xl shadow-md w-60">
       {/* Handles for edges */}
       <Handle type="target" position={Position.Top} />
@@ -71,6 +63,5 @@ export default function CustomNode({ id, data, selected }: CustomNodeProps) {
       {/* Status Indicator */}
       <div className="ml-1">{getStatusIcon()}</div>
     </div>
-
   );
 }

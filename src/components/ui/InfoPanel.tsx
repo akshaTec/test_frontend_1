@@ -14,12 +14,6 @@ interface InfoPanelProps {
 }
 
 export default function InfoPanel({ onClose, selectedNode }: InfoPanelProps) {
-  const [sourceDb, setSourceDb] = useState<object>(SNOWFLAKE_CONFIG)
-  const [targetDb, setTargetDb] = useState<object>(BIGQUERY_CONFIG)
-
-  const [sourceExpanded, setSourceExpanded] = useState(false)
-  const [targetExpanded, setTargetExpanded] = useState(false)
-
   const [activeTab, setActiveTab] = useState("details");
 
   // Sample data - in a real implementation, this would come from nodeData
@@ -60,6 +54,4 @@ export default function InfoPanel({ onClose, selectedNode }: InfoPanelProps) {
       count={3}
     />
   )
-  
-
 }

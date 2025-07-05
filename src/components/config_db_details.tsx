@@ -1,26 +1,10 @@
-interface SnowflakeConfig {
-
-}
-
-interface BigQueryConfig {
-
-}
-
-interface HiveConfig {
-
-}
-
-interface MySQLConfig {
-
-}
-
-interface OracleConfig {
-
-}
-
-interface CloudSQLConfig {
-
-}
+// Use 'object' instead of empty interface to avoid lint error
+export type SnowflakeConfig = object;
+export type BigQueryConfig = object;
+export type HiveConfig = object;
+export type MySQLConfig = object;
+export type OracleConfig = object;
+export type CloudSQLConfig = object;
 
 export const SNOWFLAKE_CONFIG: SnowflakeConfig = {
 

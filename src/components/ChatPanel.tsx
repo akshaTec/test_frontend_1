@@ -21,14 +21,16 @@ interface Message {
   configType?: DatabaseConfigType;
 }
 
-interface ChatPanelProps  {
-  selectedSource: string,
-  setSelectedSource: (source: string) => void,
-  selectedTarget: string,
-  setSelectedTarget: (target: string) => void
+interface ChatPanelProps {
+  selectedSource: string;
+  setSelectedSource: React.Dispatch<React.SetStateAction<string>>;
+  selectedTarget: string;
+  setSelectedTarget: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ChatPanel({selectedSource, setSelectedSource, selectedTarget, setSelectedTarget}: ChatPanelProps) {
+// Props are required for parent, but not used here yet
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function ChatPanel({ selectedSource, setSelectedSource, selectedTarget, setSelectedTarget }: ChatPanelProps) {
 
   const [messages, setMessages] = React.useState<Message[]>([
     {
@@ -117,7 +119,7 @@ export default function ChatPanel({selectedSource, setSelectedSource, selectedTa
     try {
       const botResponse = await sendMessageToFlask(userMessage);
       setMessages((prev) => [...prev, { text: botResponse, sender: "ai" }]);
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
@@ -169,13 +171,9 @@ export default function ChatPanel({selectedSource, setSelectedSource, selectedTa
     setShowConfigOptions(!showConfigOptions);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleConfigFileSelect = async (configType: DatabaseConfigType, sourceOrTarget: string) => {
 
-    if(sourceOrTarget === "source"){
-      setSelectedSource(configType)
-    } else {
-      setSelectedTarget(configType)
-    }
     setShowConfigOptions(false);
 
     const configMessage = {

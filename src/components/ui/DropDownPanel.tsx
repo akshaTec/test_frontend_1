@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Image from "next/image"
 import { ChevronDown } from "lucide-react"
 
 interface DropdownPanelProps {
@@ -18,7 +19,7 @@ export default function DropdownPanel({ name,type, data }: DropdownPanelProps) {
             >
                 <div className="flex items-center">
                     <div className="bg-blue-50 p-2 rounded-md mr-3">
-                        <img src={`./icons/${name}.png`} className="h-5 w-5 text-blue-500" alt={name} />
+                        <Image src={`/icons/${name}.png`} className="h-5 w-5 text-blue-500" alt={name} width={20} height={20} />
                     </div>
                     <div>
                         <div className="font-medium capitalize">{name}</div>

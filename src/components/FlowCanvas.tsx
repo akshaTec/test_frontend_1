@@ -11,32 +11,33 @@ import ReactFlow, {
   useEdgesState,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import CustomNode, { CustomNodeData, CustomNodeProps } from '@/components/ui/CustomNode';
+import CustomNode from '@/components/ui/CustomNode';
 import { initialNodes, initialEdges } from '@/components/input_nodes_edge';
 import socket from '@/utils/node_update';
 import InfoPanel from './ui/InfoPanel';
 
 const nodeTypes = { customNode: CustomNode };
 
-interface FlowCanvasProps  {
-  selectedSource: string,
-  setSelectedSource: (source: string) => void,
-  selectedTarget: string,
-  setSelectedTarget: (target: string) => void
+interface FlowCanvasProps {
+  selectedSource: string;
+  setSelectedSource: React.Dispatch<React.SetStateAction<string>>;
+  selectedTarget: string;
+  setSelectedTarget: React.Dispatch<React.SetStateAction<string>>;
 }
 
-
-export default function FlowCanvas({selectedSource, selectedTarget, setSelectedSource, setSelectedTarget} : FlowCanvasProps) {
+// Props are required for parent, but not used here yet
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function FlowCanvas({ selectedSource, setSelectedSource, selectedTarget, setSelectedTarget }: FlowCanvasProps) {
 
   const [nodes, setNodes, onNodesChange] =  useNodesState<Node>(initialNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
+  const [edges, , onEdgesChange] = useEdgesState<Edge[]>(initialEdges)
 
   const [selectedNode, setSelectedNode] = React.useState<Node | null>(null);
   
   React.useEffect(() => {
-    const handleNodeUpdate = (data: unknown) => {
+    const handleNodeUpdate = (data: { node: string }) => {
       console.log("📩 Active Node Update:", data);
-      const newNodeId = (data as any).node;
+      const newNodeId = data.node;
   
       setNodes((nds) =>
         nds.map((node: Node) => {
@@ -55,7 +56,7 @@ export default function FlowCanvas({selectedSource, selectedTarget, setSelectedS
     return () => {
       socket.off("node_update", handleNodeUpdate);
     };
-  }, []);
+  }, [setNodes]);
 
   const handleNodeClick = (event: React.MouseEvent, node: Node) =>{
     setSelectedNode(node);

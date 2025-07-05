@@ -1,7 +1,6 @@
 import google_logo from "../../../public/icons8-google.svg"
 import searce_logo from "../../../public/searce_logo.png"
 import Image from "next/image";
-import {ngrok} from "@/components/input_nodes_edge"
 
 
 export default function Login() {
